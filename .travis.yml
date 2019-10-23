@@ -1,6 +1,7 @@
 language: go
 sudo: false
-os: linux-ppc64le
+os: linux
+arch: ppc64le
 go: "1.11.x"
 env: RESTIC_TEST_FUSE=0 RESTIC_TEST_CLOUD_BACKENDS=0
 cache:
