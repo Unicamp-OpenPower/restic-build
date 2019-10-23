@@ -1,0 +1,24 @@
+language: go
+sudo: false
+os: linux-ppc64le
+go: "1.11.x"
+env: RESTIC_TEST_FUSE=0 RESTIC_TEST_CLOUD_BACKENDS=0
+cache:
+  directories:
+    - $HOME/.cache/go-build
+    - $HOME/gopath/pkg/mod
+  
+script:
+  - unset GOPATH
+  - git clone https://github.com/restic/restic
+  - cd restic
+  - go build ./cmd/restic
+  - ./restic version
+  - go test ./...
+
+notifications:
+  slack:
+    rooms:
+      - secure: "m/SzD+ZVyv8k4AybZYIxqUAgfDWu5bkTIVJqJpwl4lkPHll1x9f+7tqpN0B4Pn+Y1KLIxyLLOYAP6wspiMV7KOhCkReBF2X1vVCYG6giygm6uJOf/qPv0ynCCKcGf+kU+e/pFtT+RpNbZ3/ReuZV7Xj0s6BfAjYKpZimK2ZsKp0Cd4Oxz25a+4JVk32FfSRpazwPAXEcPZRiOnz7ZymimtWsA3A7V67cKIqxXyd8lYX/knn5TJAKOtWycsKiC9z8vHZ7mPf5HQYDkZEyYB3MdjPUHRHMNyrNdyCYcReevdJU6FUBiE8yRuDBxerIUIOuDfF8HH9hVdDHzkKlC6i6nth3UPQMfwNaUIPGte2j4JDW4hgho9PxoySWFksjF2ok6ofEwj9d4sNYOQdVcofJxYbcc3S7gLwNbP35058cg6vYLkx+j6+K6E37gAaIO0Ei8qd8+BaRxbr3XqkMMdhBKHysHLWg2mNbQQTNz6GAy9K589GhOP8djGBF80wIEH2jMVa8k3d5OoKOb8jZ0GHFGQ6bKLLvjTwkB+MKLaG+GSnrPq6hB/8YcLZGy/a7GXeVyrX8wQWQu1wj5EH6mcQbaQUfdaNId2OpFg/nA5aZa8YWbkCSe6kWoOxmmwMyHsmNnMCqtpWZF7na6GdAtdK6xICUXC/xIhCRgDO39IWkLFs="
+    on_success: change
+    on_failure: always
