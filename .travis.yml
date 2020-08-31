@@ -2,7 +2,7 @@ language: go
 sudo: false
 os: linux
 arch: ppc64le
-go: "1.13.x"
+go: "1.14.x"
 env: RESTIC_TEST_FUSE=0 RESTIC_TEST_CLOUD_BACKENDS=0
 cache:
   directories:
@@ -15,7 +15,8 @@ script:
   - cd restic
   - go build ./cmd/restic
   - ./restic version
-  - go test ./...
+  #- go test ./...
+  - go run run_integration_tests.go
 
 notifications:
   slack:
