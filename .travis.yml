@@ -16,6 +16,9 @@ script:
   - go build ./cmd/restic
   - ./restic version
   #- go test ./...
+  - export GOBIN="$GOPATH/bin"
+  - export PATH="$PATH:$GOBIN"
+  - go env
   - go run run_integration_tests.go
 
 notifications:
