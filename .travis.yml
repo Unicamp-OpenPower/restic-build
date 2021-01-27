@@ -2,14 +2,14 @@ language: go
 sudo: false
 os: linux
 arch: ppc64le
-dist: bionic
-go: "1.14.x"
+dist: focal
+go: "1.15.x"
 env: RESTIC_TEST_FUSE=0 RESTIC_TEST_CLOUD_BACKENDS=0
 cache:
   directories:
     - $HOME/.cache/go-build
     - $HOME/gopath/pkg/mod
-  
+
 script:
   - git clone https://github.com/restic/restic
   - cd restic
@@ -19,7 +19,6 @@ script:
   - export PATH="$PATH:$GOBIN"
   - go env
   - go test ./...
-  - go run run_integration_tests.go
 
 notifications:
   slack:
